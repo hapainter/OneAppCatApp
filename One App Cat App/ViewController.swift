@@ -21,27 +21,10 @@ class ViewController: UITableViewController {
 //        let url = URL(string: urlString)!
 //        var request = URLRequest(url: url)
 //
-//        request.addValue("application/json", forHTTPHeaderField: "headers")
-//
-//        let headers = ["x-api-key": "286bfc8c-5728-4980-a0d6-9ca223d384ab"]
-//
-//        let request = NSMutableURLRequest(url: NSURL(string: "https://api.thecatapi.com/v1/breeds?attach_breed=0")! as URL,
-//                                                cachePolicy: .useProtocolCachePolicy,
-//                                            timeoutInterval: 10.0)
+//        request.addValue("286bfc8c-5728-4980-a0d6-9ca223d384ab", forHTTPHeaderField: "x-api-key")
 //        request.httpMethod = "GET"
 //        request.allHTTPHeaderFields = headers
-//
-//        let session = URLSession.shared
-//        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-//          if (error != nil) {
-//            print(error)
-//          } else {
-//            let httpResponse = response as? HTTPURLResponse
-//            print(httpResponse)
-//          }
-//        })
-//
-//        dataTask.resume()
+        
         
         if let url = URL(string: urlString) {
             if let data = try? Data(contentsOf: url){
@@ -62,7 +45,7 @@ class ViewController: UITableViewController {
     }
     
     func showError(){
-        let ac = UIAlertController(title: "Loading Error", message: "There was a problem loading the feed; please check your connection and try again.", preferredStyle: .alert)
+        let ac = UIAlertController(title: "Loading Error", message: "There was a problem loading; please check your connection and try again.", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
         present(ac, animated: true)
     }
@@ -79,7 +62,7 @@ class ViewController: UITableViewController {
         
         return cell
     }
-
+//***Will Continue - this will handle navigation from selected row to future detail screen**
 //    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        let vc = DetailViewController()
 //        vc.detailItem =
