@@ -2,12 +2,12 @@
 //  Breeds.swift
 //  One App Cat App
 //
-//  Created by Holly Painter on 11/27/19.
+//  Created by Holly Painter on 12/3/19.
 //  Copyright © 2019 Holly Painter. All rights reserved.
 //
 
 import Foundation
 
-struct Breeds: Codable {
+struct Breeds {
     var results: [Breed]
 }

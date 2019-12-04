@@ -16,6 +16,22 @@ class ViewController: UITableViewController {
         super.viewDidLoad()
         
         let urlString = "https://api.thecatapi.com/v1/breeds?api_key=286bfc8c-5728-4980-a0d6-9ca223d384ab"
+//        let headers = ["x-api-key": "286bfc8c-5728-4980-a0d6-9ca223d384ab"]
+        
+        if let url = URL(string: urlString) {
+            if let data = try? Data(contentsOf: url){
+                let decoder = JSONDecoder()
+                do{
+                    let jsonBreeds = try decoder.decode([Breed].self, from: data)
+                    breeds = jsonBreeds
+                    tableView.reloadData()
+                }
+                catch{
+                    showError(error)
+                }
+            }
+        }
+        
 //        let session = URLSession.shared
 //        let headers = ["x-api-key": "286bfc8c-5728-4980-a0d6-9ca223d384ab"]
 //        let url = URL(string: urlString)!
@@ -25,27 +41,11 @@ class ViewController: UITableViewController {
 //        request.httpMethod = "GET"
 //        request.allHTTPHeaderFields = headers
         
-        
-        if let url = URL(string: urlString) {
-            if let data = try? Data(contentsOf: url){
-                parse(json: data)
-                return
-            }
-        }
-        showError()
+  
     }
-    
-    func parse(json: Data){
-        let decoder = JSONDecoder()
-        
-        if let jsonBreeds = try? decoder.decode(Breeds.self, from: json){
-            breeds = jsonBreeds.results
-            tableView.reloadData()
-        }
-    }
-    
-    func showError(){
-        let ac = UIAlertController(title: "Loading Error", message: "There was a problem loading; please check your connection and try again.", preferredStyle: .alert)
+
+    func showError(_ error: Error){
+        let ac = UIAlertController(title: "Loading Error", message: "There was a problem loading; please check your connection and try again. \(error.localizedDescription)", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
         present(ac, animated: true)
     }

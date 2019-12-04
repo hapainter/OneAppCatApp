@@ -11,5 +11,4 @@ import Foundation
 struct Breed: Codable {
     var name: String
     var origin: String
-    var wikiUrl: String
 }
