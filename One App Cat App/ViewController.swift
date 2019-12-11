@@ -15,10 +15,14 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let urlString = "https://api.thecatapi.com/v1/breeds?api_key=286bfc8c-5728-4980-a0d6-9ca223d384ab"
-//        let headers = ["x-api-key": "286bfc8c-5728-4980-a0d6-9ca223d384ab"]
+        let urlString = "https://api.thecatapi.com/v1/breeds"
         
         if let url = URL(string: urlString) {
+            var request = URLRequest(url: url)
+            
+            request.addValue("286bfc8c-5728-4980-a0d6-9ca223d384ab", forHTTPHeaderField: "x-api-key")
+            URLSession.shared.dataTask(with: request) {(data: Data?, response: URLResponse?, error: Error?) -> Void in}.resume()
+            
             if let data = try? Data(contentsOf: url){
                 let decoder = JSONDecoder()
                 do{
@@ -32,16 +36,6 @@ class ViewController: UITableViewController {
             }
         }
         
-//        let session = URLSession.shared
-//        let headers = ["x-api-key": "286bfc8c-5728-4980-a0d6-9ca223d384ab"]
-//        let url = URL(string: urlString)!
-//        var request = URLRequest(url: url)
-//
-//        request.addValue("286bfc8c-5728-4980-a0d6-9ca223d384ab", forHTTPHeaderField: "x-api-key")
-//        request.httpMethod = "GET"
-//        request.allHTTPHeaderFields = headers
-        
-  
     }
 
     func showError(_ error: Error){
